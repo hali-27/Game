@@ -124,43 +124,50 @@ class Character {
 
 // assignment: Figure out how to link characters to rooms.
 
-const Kitchen = new Room("kitchen");
-Kitchen.description =
-  "a long narrow room with worktops on either side and a large bench in the middle";
-const Lounge = new Room("lounge");
-Lounge.description = "a large room with two sofas and a large fire place";
+const Kitchen = new Room("Kitchen");
+Kitchen.description = "a large room with two worktops, and a window by the sink. Food is stored and cooked here. This may be the perfect place to go for dinner if you are a mouse."
+const QuietRoom = new Room("Quiet Room");
+QuietRoom.description = "a sofa, bookshelf, and a fire place. It is a small room in the middle of the house. Nice and cosy for snoozing in. You can access every room in the house from here.";
 const GamesRoom = new Room("Games Room");
-GamesRoom.description = "a large room with a pool table at it's centre";
-const Hall = new Room("hall");
-Hall.description =
-  "a grand entrance hall with large paintings around the walls";
-
-Kitchen.linkRoom("south", Lounge);
-Kitchen.linkRoom("east", Hall);
-Lounge.linkRoom("north", Kitchen);
-Lounge.linkRoom("east", GamesRoom);
-GamesRoom.linkRoom("west", Lounge);
-GamesRoom.linkRoom("north", Hall);
-Hall.linkRoom("south", GamesRoom);
-Hall.linkRoom("west", Kitchen);
+GamesRoom.description = "a room full of cat toys and children toys.";
+const Office = new Room("Office");
+Office.description =
+  "a room with a desk, comfy chair, snacks, and a bay window.";
+const Catio = new Room("Catio");
+Catio.description =
+  "a glass room with floor heating and two cat beds, overlooking the beautiful garden.";
 
 
-const Truffles = new Character("truffles");
-Truffles.description = "The mother cat. From Bengal family. Living her best life playing in the games room";
+  QuietRoom.linkRoom("south", Catio);
+  QuietRoom.linkRoom("north", Office);
+  QuietRoom.linkRoom("east", Kitchen);
+  QuietRoom.linkRoom("west", GamesRoom);
+  Kitchen.linkRoom("west", QuietRoom);
+  Office.linkRoom("south", QuietRoom);
+  Catio.linkRoom("north", QuietRoom);
+  GamesRoom.linkRoom("east", QuietRoom);
+
+
+
+const Truffles = new Character("Truffles");
+Truffles.description = "The mother cat. Living her best life playing in the games room";
 Truffles.conversation = "The is a cute little creature sleeping in my bed in the Quiet room.";
-const Poppy = new Character("poppy");
+const Poppy = new Character("Poppy");
 Poppy.description = "The cat enjoying her views and temperature in the catio after eating her 5th meal of the day in the kitchen already."
 Poppy.conversation = "Meow. I think I heard something in the kitchen.";
+// const Mouse1 = new Character("Mouse1");
+// Mouse1.description
 
-Kitchen.character = Truffles;
-Lounge.character = Poppy;
+
+GamesRoom.character = Truffles;
+Catio.character = Poppy;
   
 
 
 // the room parameter to this function is a room object
 
 const displayRoomInfo = (room) => {
-  let occupantMsg = "Meow. My name is";
+  let occupantMsg = "";
 
   if (room.character) {
     occupantMsg = room.character.describe() + room.character.converse();
